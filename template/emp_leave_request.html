@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Requests</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100%;
+            background-color: #1161e1;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #fff;
+            display: block;
+            transition: 0.3s;
+        }
+        .sidebar a:hover {
+            background-color: #4d9aff;
+        }
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        .leave-request {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .leave-request h2 {
+            margin-top: 0;
+        }
+        .leave-request table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .leave-request th, .leave-request td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .leave-request th {
+            background-color: #f2f2f2;
+        }
+        .leave-request tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .leave-request tr:hover {
+            background-color: #ddd;
+        }
+        .action-link {
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            user-select: none;
+            background-image: none;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+        .action-link.accept-link {
+            color: #fff;
+            background-color: #5cb85c;
+            border-color: #4cae4c;
+        }
+        .action-link.reject-link {
+            color: #fff;
+            background-color: #d9534f;
+            border-color: #d43f3a;
+        }
+        .action-link:hover,
+        .action-link:focus,
+        .action-link:active,
+        .action-link.active {
+            color: #fff;
+            background-color: #5cb85c;
+            border-color: #4cae4c;
+        }
+        .reject-link:hover,
+        .reject-link:focus,
+        .reject-link:active,
+        .reject-link.active {
+            color: #fff;
+            background-color: #d9534f;
+            border-color: #d43f3a;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <a href="/hr/dashboard/">Home</a>
+    <a href="/hr/dashboard/salary/">Salary</a>
+    <a href="/hr/dashboard/view">View Employee</a>
+</div>
+
+<div class="content">
+    <div class="leave-request">
+        <h2>Leave Requests</h2>
+        <table>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Leave Date From</th>
+                <th>Leave Date To</th>
+                <th>Reason</th>
+                <th>Action</th>
+            </tr>
+            {% for leave_request in leaves %}
+            <tr>
+                <td>{{ leave_request.username }}</td>
+                <td>{{ leave_request.email }}</td>
+                <td>{{ leave_request.leave_date_from }}</td>
+                <td>{{ leave_request.leave_date_to }}</td>
+                <td>{{ leave_request.reason }}</td>
+                <td>
+                    <a href="accept/?id={{leave_request.id}}" class="action-link accept-link">Accept</a>
+                    <a href="reject/?id={{leave_request.id}}" class="action-link reject-link">Reject</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

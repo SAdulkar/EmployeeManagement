@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100%;
+            background-color: #1161e1;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #fff;
+            display: block;
+            transition: 0.3s;
+        }
+        .sidebar a:hover {
+            background-color: #4d9aff;
+        }
+        /* Style for the logout link */
+        .sidebar a.logout {
+            background-color: #f44336;
+            margin-top: 20px; /* Add some space below the last link */
+        }
+        .sidebar a.logout:hover {
+            background-color: #ff6659;
+        }
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        .notification {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .notification input[type="text"],
+        .notification textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .notification input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .notification input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        /* Table styling */
+        .emplist table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .emplist th, .emplist td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .emplist th {
+            background-color: #f2f2f2;
+        }
+        .emplist tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .emplist tr:hover {
+            background-color: #ddd;
+        }
+        .view-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <a href="/hr/dashboard/">Home</a>
+    <a href="/hr/dashboard/salary/">Salary</a>
+    <a href="leave">Review Leave Request</a>
+    <a href="/hr/dashboard/view">View Employee</a>
+    <a href="/hr/logout" class="logout">Logout</a>
+   
+</div>
+
+<div class="content">
+    <h3>Hr Console</h3>
+    <h2>Welcome {{name}}</h2>
+    <div class="notification">
+        <form method="POST">
+            {% csrf_token %}
+            <h4>Add Notification</h4>
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" placeholder="Enter title...">
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" placeholder="Enter message..." rows="4"></textarea>
+            <input type="submit" value="Add">
+        </form>
+    </div>
+    <div class="emplist">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Department</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Example row -->
+                
+                {% for emp in employees %}
+                <tr>
+                    <td>{{emp.name}}</td>
+                    <td>{{emp.email}}</td>
+                    <td>{{emp.department}}</td>
+                    <td><a href="viewprofile/?id={{emp.id}}" class="view-btn">View</a></td>
+                </tr>
+
+                {% endfor %}
+                <!-- Add more rows dynamically here -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

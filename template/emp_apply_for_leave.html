@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for Leave</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100%;
+            background-color: #1161e1;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #fff;
+            display: block;
+            transition: 0.3s;
+        }
+        .sidebar a:hover {
+            background-color: #4d9aff;
+        }
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        .leave-form {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            max-width: 400px;
+        }
+        .leave-form label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+        .leave-form textarea,
+        .leave-form input[type="date"],
+        .leave-form input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .leave-form input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .leave-form input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <a href="/employee/dashboard/">Home</a>
+    
+</div>
+
+<div class="content">
+    <h3>Apply for Leave</h3>
+    <div class="leave-form">
+        <form method="POST">
+            {% csrf_token %}
+            <label for="reason">Reason for Leave:</label>
+            <textarea id="reason" name="reason" rows="4" placeholder="Enter reason for leave..."></textarea>
+
+            <label for="start_date">Start Date:</label>
+            <input type="date" id="start_date" name="start_date">
+
+            <label for="end_date">End Date:</label>
+            <input type="date" id="end_date" name="end_date">
+
+            <input type="submit" value="Apply">
+        </form>
+        {% if error %}
+            <h4>{{error}}</h4>
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>

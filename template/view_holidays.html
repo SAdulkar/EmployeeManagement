@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Status</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100%;
+            background-color: #1161e1;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #fff;
+            display: block;
+            transition: 0.3s;
+        }
+        .sidebar a:hover {
+            background-color: #4d9aff;
+        }
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        /* Table styling */
+        .leave-status-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .leave-status-table th, .leave-status-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .leave-status-table th {
+            background-color: #f2f2f2;
+        }
+        .leave-status-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .leave-status-table tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <a href="/employee/dashboard/">Home</a>
+   
+</div>
+
+<div class="content">
+    <h4>You have taken {{total}} leaves</h4>
+    <div class="leave-status-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Example row -->
+                {% for leaves in leave_status %}
+                <tr>
+                    <td>{{ leaves.leave_date_from }}</td>
+                    <td>{{ leaves.leave_date_to }}</td>
+                    <td>{{ leaves.reason }}</td>
+                    <td>
+                        {% if leaves.leave_status == None %}
+                            Pending
+                        {% else %}
+                            {{ leaves.leave_status }}
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+                <!-- Add more rows dynamically here -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
